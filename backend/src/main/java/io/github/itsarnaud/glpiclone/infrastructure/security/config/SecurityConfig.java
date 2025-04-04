@@ -1,4 +1,4 @@
-package io.github.itsarnaud.glpiclone.config;
+package io.github.itsarnaud.glpiclone.infrastructure.security.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

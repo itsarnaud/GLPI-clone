@@ -36,7 +36,7 @@ public class UserDomainService implements UserDomainPort {
         if (!bcryptPasswordEncoderService.matches(user.getPassword(), userFromDb.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
-        return jwtService.generateToken(user.getEmail());
+        return jwtService.generateToken(userFromDb.getEmail());
     }
 
 }

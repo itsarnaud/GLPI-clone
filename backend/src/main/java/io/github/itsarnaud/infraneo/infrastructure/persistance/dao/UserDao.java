@@ -13,7 +13,7 @@ import java.util.UUID;
 @Data
 @Getter
 @Setter
-@Table(name="user")
+@Table(name="infraneo_user")
 public class UserDao {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

@@ -21,6 +21,11 @@ public class UserPersistanceService implements UserPersistancePort {
         userJpaRepository.save(UserMapper.toDao(user));
     }
 
+    public User findUserByEmail(String email) {
+        return userJpaRepository.findByEmail(email)
+                .map(UserMapper::toEntity)
+                .orElse(null);
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package io.github.itsarnaud.infraneo.infrastructure.security.service;
 
-
-import io.github.itsarnaud.infraneo.domain.entity.User;
+import io.github.itsarnaud.infraneo.domain.port.out.JwtServicePort;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.stereotype.Service;
@@ -12,7 +11,7 @@ import java.util.Date;
 
 
 @Service
-public class JwtService {
+public class JwtService implements JwtServicePort {
 
     private final PrivateKey privateKey;
     private final PublicKey publicKey;
@@ -23,9 +22,9 @@ public class JwtService {
     }
 
 
-    public String generateToken(User user) {
+    public String generateToken(String email) {
         return Jwts.builder()
-                .setSubject(user.getEmail())
+                .setSubject(email)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 10))
                 .signWith(privateKey, SignatureAlgorithm.RS256)

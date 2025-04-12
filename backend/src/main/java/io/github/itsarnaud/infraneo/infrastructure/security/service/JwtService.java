@@ -9,7 +9,6 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Date;
 
-
 @Service
 public class JwtService implements JwtServicePort {
 
@@ -21,7 +20,6 @@ public class JwtService implements JwtServicePort {
         this.publicKey = publicKey;
     }
 
-
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -30,4 +28,22 @@ public class JwtService implements JwtServicePort {
                 .signWith(privateKey, SignatureAlgorithm.RS256)
                 .compact();
     }
+
+    public String validateToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(publicKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expirationDate = Jwts.parser()
+                .setSigningKey(publicKey)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+        return expirationDate.before(new Date());
+    }
+
 }

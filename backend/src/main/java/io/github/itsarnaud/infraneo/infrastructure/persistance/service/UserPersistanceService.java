@@ -18,13 +18,21 @@ public class UserPersistanceService implements UserPersistancePort {
     }
 
     public void saveUser(User user) {
-        userJpaRepository.save(UserMapper.toDao(user));
+        try {
+            userJpaRepository.save(UserMapper.toDao(user));
+        } catch (Exception e) {
+            throw new RuntimeException("Error while saving user");
+        }
     }
 
     public User findUserByEmail(String email) {
-        return userJpaRepository.findByEmail(email)
-                .map(UserMapper::toEntity)
-                .orElse(null);
+        try{
+            return userJpaRepository.findByEmail(email)
+                    .map(UserMapper::toEntity)
+                    .orElse(null);
+        }catch (Exception e) {
+            throw new RuntimeException("Error while finding user by email");
+        }
     }
 
 

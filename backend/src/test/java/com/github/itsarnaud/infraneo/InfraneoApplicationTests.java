@@ -1,10 +1,10 @@
-package io.github.itsarnaud.glpiclone;
+package com.github.itsarnaud.infraneo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GlpicloneApplicationTests {
+class InfraneoApplicationTests {
 
 	@Test
 	void contextLoads() {

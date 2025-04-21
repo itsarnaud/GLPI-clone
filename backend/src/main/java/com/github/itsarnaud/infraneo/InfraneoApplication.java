@@ -1,13 +1,13 @@
-package io.github.itsarnaud.glpiclone;
+package com.github.itsarnaud.infraneo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class GlpicloneApplication {
+public class InfraneoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GlpicloneApplication.class, args);
+		SpringApplication.run(InfraneoApplication.class, args);
 	}
 
 }

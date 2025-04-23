@@ -14,7 +14,14 @@ export default defineConfig({
 
   plugins: [
     vue(),
-    ui(),
+    ui({
+      ui: {
+        colors: {
+          primary: 'electric-indigo',
+          neutral: 'zinc'
+        }
+      }
+    }),
     tailwindcss()
   ],
 })

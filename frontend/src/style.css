@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme static {
+  --color-electric-indigo-50:  #f5f3ff;
+  --color-electric-indigo-100: #ede9fe;
+  --color-electric-indigo-200: #ddd6fe;
+  --color-electric-indigo-300: #c4b5fd;
+  --color-electric-indigo-400: #a78bfa;
+  --color-electric-indigo-500: #8b5cf6;
+  --color-electric-indigo-600: #7c3aed;
+  --color-electric-indigo-700: #6d28d9;
+  --color-electric-indigo-800: #5b21b6;
+  --color-electric-indigo-900: #4c1d95;
+  --color-electric-indigo-950: #2e1065;
+}

@@ -1,0 +1,170 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  users       User[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("organizations")
+}
+
+model User {
+  id          String    @id @default(uuid())
+  firstname   String
+  lastname    String
+  email       String    @unique
+  password    String
+  roleId      String?
+  organizationId String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  organization Organization? @relation(fields: [organizationId], references: [id])
+  role         Role?          @relation(fields: [roleId], references: [id])
+  tickets      Ticket[]
+  messages     TicketMessage[]
+  notifications Notification[]
+
+  @@map("users")
+}
+
+model Role {
+  id          String   @id @default(uuid())
+  name        String 
+  permissions Json
+  users       User[]
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  @@map("roles")
+}
+
+model Ticket {
+  id          String          @id @default(uuid())
+  title       String
+  description String?
+  status      TicketStatus
+  priority    TicketPriority
+  created_at  DateTime        @default(now())
+  updated_at  DateTime        @updatedAt
+
+  userId      String
+  user        User            @relation(fields: [userId], references: [id])
+  messages    TicketMessage[]
+  equipments  Equipment[]     @relation("TicketEquipment")
+
+  @@map("tickets")
+}
+
+model TicketMessage {
+  id        String   @id @default(uuid())
+  message   String
+  created_at DateTime @default(now())
+  updated_at DateTime  @updatedAt
+
+  ticketId  String
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+
+  @@map("ticket_messages")
+}
+
+model Equipment {
+  id           String     @id @default(uuid())
+  name         String
+  type         String
+  description  String?
+  status       EquipmentStatus
+  localization String?
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @updatedAt
+
+  contractId   String?
+  licenseId    String?
+
+  contract     Contract?  @relation(fields: [contractId], references: [id])
+  license      License?   @relation(fields: [licenseId], references: [id])
+  tickets      Ticket[]   @relation("TicketEquipment")
+
+  @@map("equipments")
+}
+
+model Contract {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  start_date  DateTime
+  end_date    DateTime
+  provider    String?
+  description String?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  equipments  Equipment[]
+
+  @@map("contracts")
+}
+
+model License {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  software    String
+  start_date  DateTime
+  end_date    DateTime
+  nb_seats    Int
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+
+  equipments  Equipment[]
+
+  @@map("licenses")
+}
+
+model Notification {
+  id         String   @id @default(uuid())
+  message    String
+  type       String
+  is_read    Boolean  @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+
+  @@map("notifications")
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum EquipmentStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+  RETIRED
+}
+

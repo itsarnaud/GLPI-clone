@@ -6,7 +6,12 @@ const RegistrationSchema = z.object({
   email:      z.email({ error: 'Veuillez entrer une adresse email valide.' }),
   password:   z.string().min(8, { error: 'Le mot de passe doit contenir au moins 8 caractères.' }),
   // Add more required properties
-})
+});
 
-export { RegistrationSchema }
+const LoginSchema = z.object({
+  email:    z.email({ error: 'Veuillez entrer une adresse email valide.' }),
+  password: z.string({ error: 'Le mot de passe est requis.' })
+});
+
+export { RegistrationSchema, LoginSchema };
 

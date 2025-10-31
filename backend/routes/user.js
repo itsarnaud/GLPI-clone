@@ -2,9 +2,12 @@ const express = require('express');
 const router  = express.Router();
 
 const UsersController = require('../controllers/UsersController');
+const auth            = require('../middlewares/auth');
 
 router.post  ('/signup',  UsersController.signup);
 router.post  ('/login',   UsersController.login);
+router.all   ('*',        auth.index);
+
 router.post  ('/',        UsersController.create);
 router.get   ('/',        UsersController.list);
 router.get   ('/:id',     UsersController.show);

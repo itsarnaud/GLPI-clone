@@ -25,13 +25,13 @@ model User {
   lastname    String
   email       String    @unique
   password    String
-  roleId      String?
+  role        Role
   organizationId String?
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
 
   organization Organization? @relation(fields: [organizationId], references: [id])
-  role         Role?          @relation(fields: [roleId], references: [id])
+  // role         Role?          @relation(fields: [roleId], references: [id])
   tickets      Ticket[]
   messages     TicketMessage[]
   notifications Notification[]
@@ -39,16 +39,16 @@ model User {
   @@map("users")
 }
 
-model Role {
-  id          String   @id @default(uuid())
-  name        String 
-  permissions Json
-  users       User[]
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
+// model Role {
+//   id          String   @id @default(uuid())
+//   name        String 
+//   permissions Json?
+//   users       User[]
+//   created_at  DateTime  @default(now())
+//   updated_at  DateTime  @updatedAt
 
-  @@map("roles")
-}
+//   @@map("roles")
+// }
 
 model Ticket {
   id          String          @id @default(uuid())
@@ -166,5 +166,10 @@ enum EquipmentStatus {
   INACTIVE
   MAINTENANCE
   RETIRED
+}
+
+enum Role {
+  ADMIN
+  USER
 }
 

@@ -8,6 +8,7 @@ const privateKey = fs.readFileSync('./keys/private.key', 'utf8');
 
 module.exports.signup = async (req, res) => {
   try {
+    req.body.role = 'ADMIN';
     const parsed = RegistrationSchema.safeParse(req.body);
     if (!parsed.success) {
       return res.status(400).json({ err: parsed.error.issues });
@@ -20,11 +21,11 @@ module.exports.signup = async (req, res) => {
   
     const existing = await prisma.user.findUnique({ where: { email: data.email } });
     if (existing) {
-      return res.status(401).json({ err: 'Cet email est déjà utilisé.' });
+      return res.status(400).json({ err: 'Cet email est déjà utilisé.' });
     }
 
     const user  = await prisma.user.create({ data });
-    const token = jwt.sign({ user_id: user.id }, privateKey, { algorithm: 'RS256', expiresIn: '2h' });
+    const token = jwt.sign({ user_id: user.id, role: user.role }, privateKey, { algorithm: 'RS256', expiresIn: '2h' });
     return res.status(201).json({ token });
   } catch (err) {
     console.error(err);
@@ -58,8 +59,33 @@ module.exports.login = async (req, res) => {
   }
 }
 
-module.exports.create = (req, res) => {
-  res.status(200).json({ msg: 'user creation by an admin, return true/false' })
+module.exports.create = async (req, res) => {
+  try {
+    if (req.user.role !== 'ADMIN') {
+      return res.status(403).json({ err: 'Action non autorisé.' })
+    }
+    
+    const parsed = RegistrationSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ err: parsed.error.issues });
+    }
+    const data = parsed.data;
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(data.password, salt);
+    data.password = hash;
+
+    const existing = await prisma.user.findUnique({ where: { email: data.email } });
+    if (existing) {
+      return res.status(400).json({ err: 'Cet email est déjà utilisé.' });
+    }
+
+    const user = await prisma.user.create({ data });
+    return res.status(201).json({ created: true })
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ err: 'Erreur interne.' });
+  }
 }
 
 module.exports.list = (req, res) => {

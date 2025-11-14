@@ -13,6 +13,16 @@
 
   --secondary-gray: #817F88; 
   --tertiary-gray: #C6C6CB;
+
+  --danger: #BA2020;
+  --warning: #BC510A;
+  --info: #0E6AB4;
+  --success: #186D38;
+  --danger-light: #FEE2E2;
+  --warning-light: #FEF9C3;
+  --info-light: #D6EDFF;
+  --success-light: #DCFCE7;
+
   --ui-primary: var(--primary);
   --ui-secondary: var(--secondary);
   --ui-tertiary: var(--tertiary);
@@ -38,6 +48,15 @@
 
   --color-secondary-gray: var(--secondary-gray); 
   --color-tertiary-gray:  var(--tertiary-gray);
+
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --color-success: var(--success);
+  --color-danger-light: var(--danger-light);
+  --color-warning-light: var(--warning-light);
+  --color-info-light: var(--info-light);
+  --color-success-light: var(--success-light);
 
   --font-display: "Parkinsans", sans-serif;
 }

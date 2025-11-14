@@ -10,7 +10,7 @@ import ResetPasswordView  from '@/views/auth/ResetPasswordView.vue';
 import HomeView from '@/views/app/HomeView.vue'
 
 const routes = [
-  { path: '/', name: 'Accueil', component: HomeView },
+  { path: '/', name: 'Accueil', component: HomeView, redirect: '/login' },
 
   { path: '/login', name: 'Login', component: LoginView },
   { path: '/signup', name: 'Signup', component: SignupView },

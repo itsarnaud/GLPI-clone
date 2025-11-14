@@ -1,18 +1,18 @@
-import axios    from "axios";
-import Cookies  from "js-cookie";
+import Cookies from 'js-cookie';
 
-export const API_REQUEST = async (url, data, method) => {
+export const API_REQUEST = async (url, data = {}, method = 'GET') => {
   const jwt = Cookies.get('token_auth');
-  const config = { 
-    method, 
-    url,
-    data,
-    headers: {
-      'Authorization': jwt ? `Bearer ${jwt}` : '',
-      'Content-Type': 'application/json',
-    }
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(jwt ? { Authorization: `Bearer ${jwt}` } : {})
   };
 
-  const response = await axios(config);
-  return response
+  const init = { method, headers };
+
+  if (data && !['GET', 'HEAD'].includes(method.toUpperCase())) {
+    init.body = JSON.stringify(data);
+  }
+
+  const res = await fetch(url, init);
+  return res;
 };

@@ -17,7 +17,7 @@ export default defineConfig({
     ui({
       ui: {
         colors: {
-          primary: 'electric-indigo',
+          primary: '#824AF2',
           neutral: 'zinc'
         }
       }

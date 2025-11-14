@@ -1,16 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&display=swap');
+
+:root {
+  --background: #FAF9FD;
+  --foreground: #0D0A15;
+
+  --primary: #824AF2;
+  --secondary: #E9E3FA;
+  --tertiary: #6835D0;
+
+  --secondary-white: #F5F4FB; 
+  --tertiary-white: #EDECF3;
+
+  --secondary-gray: #817F88; 
+  --tertiary-gray: #C6C6CB;
+  --ui-primary: var(--primary);
+  --ui-secondary: var(--secondary);
+  --ui-tertiary: var(--tertiary);
+  --ui-background: var(--background);
+  --ui-foreground: var(--foreground);
+  --ui-muted: var(--secondary-gray);
+  --ui-border: var(--tertiary-gray);
+}
+
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@theme static {
-  --color-electric-indigo-50:  #f5f3ff;
-  --color-electric-indigo-100: #ede9fe;
-  --color-electric-indigo-200: #ddd6fe;
-  --color-electric-indigo-300: #c4b5fd;
-  --color-electric-indigo-400: #a78bfa;
-  --color-electric-indigo-500: #8b5cf6;
-  --color-electric-indigo-600: #7c3aed;
-  --color-electric-indigo-700: #6d28d9;
-  --color-electric-indigo-800: #5b21b6;
-  --color-electric-indigo-900: #4c1d95;
-  --color-electric-indigo-950: #2e1065;
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary:    var(--primary);
+  --color-secondary:  var(--secondary);
+  --color-tertiary:   var(--tertiary);
+
+  --color-secondary-white: var(--secondary-white);
+  --color-tertiary-white:  var(--tertiary-white);
+
+  --color-secondary-gray: var(--secondary-gray); 
+  --color-tertiary-gray:  var(--tertiary-gray);
+
+  --font-display: "Parkinsans", sans-serif;
+}
+
+/* @theme dark {
+  --color-background: var(--foreground);
+  --color-foreground: var(--background);
+
+  --color-primary:    var(--primary);
+  --color-secondary:  var(--secondary);
+  --color-tertiary:   var(--tertiary);
+
+  --color-secondary-white: var(--secondary-white);
+  --color-tertiary-white:  var(--tertiary-white);
+
+  --color-secondary-gray: var(--secondary-gray); 
+  --color-tertiary-gray:  var(--tertiary-gray);
+
+  --font-display: "Parkinsans", sans-serif;
+} */
+
+html {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* html.dark {
+  --color-background: var(--foreground);
+  --color-foreground: var(--background);
+} */
+
+html, body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-display);
 }

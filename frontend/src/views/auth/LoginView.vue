@@ -48,7 +48,7 @@
 
 <template>
   <section class="flex justify-center flex-col lg:flex-row items-center min-h-screen p-3 gap-5">
-    <div class="p-10 flex-col items-center gap-5 lg:w-[574px] lg:h-[700px] bg-tertiary-white rounded-2xl hidden lg:flex">
+    <div class="p-10 flex-col items-center justify-center gap-5 lg:w-[574px] lg:h-[700px] bg-tertiary-white rounded-2xl hidden lg:flex">
       <img src="/login_image.png" alt="Login">
       <h1 class="text-foreground font-bold text-3xl text-center">Connexion à Infranéo</h1>
       <p class="text-center text-secondary-gray">Accédez à votre espace pour gérer vos actifs informatiques, suivre vos tickets d'assistance et administrer vos licences en toute simplicité.</p>
